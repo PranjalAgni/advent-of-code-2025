@@ -5,7 +5,7 @@ export const readInput = async (inputPath: string) => {
   return data;
 };
 
-export const convertInputToList = (data: string) => {
+export const convertInputToList = (data: string, splitter = '\n') => {
   if (!data || typeof data !== 'string') return [];
-  return data.split('\n');
+  return data.split(splitter);
 };
