@@ -14,7 +14,7 @@ function processRanges(input: string[]) {
 
 function mergeIntervals(intervals: number[][]) {
   const sortedIntevals = intervals.sort((interval1, interval2) => {
-    return interval1[1] - interval2[1];
+    return interval1[0] - interval2[0];
   });
 
   const mergedIntervals = [];
@@ -25,12 +25,9 @@ function mergeIntervals(intervals: number[][]) {
     const pos: number = mergedIntervals.length - 1;
     const [fc, tc] = mergedIntervals.at(pos)! as [number, number];
     const [f, t] = sortedIntevals[idx];
-    if (tc >= f && tc <= t) {
+    if (tc >= f) {
       // replace
-      mergedIntervals[pos] = [Math.min(fc, f), t];
-    } else if (tc >= f && tc > t) {
-      // replace
-      mergedIntervals[pos] = [Math.min(fc, f), tc];
+      mergedIntervals[pos] = [fc, Math.max(tc, t)];
     } else {
       // add
       mergedIntervals.push([f, t]);
